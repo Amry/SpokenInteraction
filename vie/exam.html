@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>VIE.js - Skeleton</title>
+       
+	<script type="text/javascript">
+        if (window.JSON === undefined ) { 
+            document.write('<' + 'script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js">/script>"></' + 'script>');
+        }
+    </script>
+ 	<script type="text/javascript" src="lib/jquery.min.js"></script> 
+    <script type="text/javascript" src="lib/underscore.js"></script> 
+    <script type="text/javascript" src="lib/backbone.js"></script> 
+    <script type="text/javascript" src="lib/jquery.rdfquery.js"></script>   
+ 	<script type="text/javascript" src="lib/vie-2.0.0.debug.js"></script>   
+        
+    <!-- jQuery UI -->
+    <script type="text/javascript" src="lib/jquery-ui.js"></script>
+    
+	<script type="text/javascript">
+	$(function () {
+		var v = new VIE();
+		var entity = new v.Entity({
+			'@subject' : "<http://your-namespace.com/SomeId001>",
+			'@type' : "Person",
+			'name' : "Amrullo"
+		});
+		var eiffel_tower = new v.Entity({
+			'@subject' : "<http://dbpedia.org/resource/Eiffel_Tower>",
+			'@type' : "TouristAttraction",
+			'name' : "The Eiffel Tower"
+		});
+		
+		if (entity.isof("Person"))
+			$('#myarticle').append($('<div>').text(entity.get("name") + " is a Person!"));
+		if (!eiffel_tower.isof("Person"))
+			$('#myarticle').append($('<div>').text(eiffel_tower.get("name") + " is not a Person!"));
+
+               });	
+	</script>
+
+</head>
+<body>
+
+  <div id="myarticle"></div>
+ 
+</body>
+</html>​

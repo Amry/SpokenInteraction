@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+  <TITLE>Diff, Match and Patch:</TITLE>
+  <SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="diff.js"></SCRIPT>
+  <link rel="stylesheet" type="text/css" href="css.css" media="screen" />
+</HEAD>
+
+<BODY>
+<H1>Diff, Match and Patch</H1>
+
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+
+//possible input 
+var input=new Array("highlight all names","highlight all years","highlight all images",
+			    "highlight all musical instruments","highlight all albums","highlight all musical genres");
+        
+//creating diff_match_patch object  
+var dmp = new diff_match_patch();
+function launch() {
+
+	var user_inp=document.getElementById('speech').value;
+  	
+	text=user_inp.toLowerCase();
+	
+	dmp.Diff_Timeout = parseFloat(3);
+  	dmp.Diff_EditCost = parseFloat(5);
+        
+	var i=0;
+	
+	
+	var tmp="";
+	var min_index=new Array(6);	
+	
+        while(i<input.length){
+                
+        	var compare = dmp.diff_main(text,input[i]);
+  		dmp.diff_cleanupSemantic(compare);
+        	dmp.diff_cleanupEfficiency(compare);
+  		
+	        var ds=dmp.diff_prettyHtml(compare);
+		var ins=ds[0];
+		var del=ds[1]
+		var equal=ds[2];
+		min_index[i]=ins;
+				      	
+		//var tmp=tmp+ins+" <-> "+del+" <-> "+equal+": min="+min_index[i]+"<br>";
+		var tmp=tmp+input[i]+": min="+min_index[i]+"<br>";		
+		document.getElementById('outputdiv').innerHTML = tmp;
+	
+	//calculating the similarity (0,1);
+	//tmp=text.length/	
+	i++;
+	}
+	i=0;
+	var index=0;
+	while(i<min_index.length){
+	   if(i==0){
+	      var min=min_index[i];
+	      }	  
+	   if(i>0) {
+		var int_m=min;
+		min=min_index[i];
+		if(int_m<min){
+		   min=int_m;
+		   		  
+		  }		
+		 
+		}
+	i++;	   
+	}
+	i=0;
+	while(i<input.length){
+	 if(min_index[i]==min)
+	  index=i;
+	i++;	
+	}
+		
+	var output=input[index];		
+	document.getElementById('output').innerHTML = "<b><H2>Program input: "+output+"<br>"+"User input: "+text+"</b></H2>";
+	document.getElementById('user').innerHTML = "<b><H2>User Input: "+user_inp+"</b></H2>";
+	
+}
+</SCRIPT>
+
+<input type="text" ID="speech" x-webkit-speech onwebkitspeechchange="launch()">
+<DIV ID="outputdiv"></DIV>
+<DIV ID="output"></DIV>
+<DIV ID="user"></DIV>
+
+<HR>
+</BODY>
+</HTML>
