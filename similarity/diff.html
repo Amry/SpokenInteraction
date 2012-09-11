@@ -4,7 +4,8 @@
   <TITLE>Diff, Match and Patch:</TITLE>
   <SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="diff.js"></SCRIPT>
   <link rel="stylesheet" type="text/css" href="css.css" media="screen" />
-</HEAD>
+
+  </HEAD>
 
 <BODY>
 <H1>Diff, Match and Patch</H1>
@@ -13,8 +14,7 @@
 <SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
 
 //possible input 
-var input=new Array("highlight all names","highlight all years","highlight all images",
-			    "highlight all musical instruments","highlight all albums","highlight all musical genres");
+var input=new Array("highlight all names","highlight all years","highlight all images");
         
 //creating diff_match_patch object  
 var dmp = new diff_match_patch();
@@ -59,7 +59,7 @@ function launch() {
 	   if(i==0){
 	      var min=min_index[i];
 	      }	  
-	   if(i>0) {
+	   if(i>=0) {
 		var int_m=min;
 		min=min_index[i];
 		if(int_m<min){
